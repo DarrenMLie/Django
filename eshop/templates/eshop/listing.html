@@ -1,0 +1,91 @@
+<!-- listing details page **-->
+{% extends 'eshop/layout.html' %}
+<!-- load static files ** -->
+{% load static %}
+
+{% block body %}
+    <div class="listingpage">
+        <!-- listing title ** -->
+        <div style="display: flex;flex-direction: row;justify-content: space-between;">
+            <h2>Listing: {{ listing.title }}</h2>
+        </div>
+
+        <!-- out of stock label ** -->
+        {% if listing.stock == 0 %}
+        <div class="border">
+            <p style="color: red;"><b><em>(This product is out of stock)</em></b></p>
+        </div>
+        {% endif %}
+
+        <!-- listing image ** -->
+        <img alt="No Image" src="{{ listing.imageurl }}" class="border" >
+
+        <!-- listing description **-->
+        <div class="border">
+            <p>{{ listing.description }}</p>
+        </div>
+
+        <div class="border">
+            <!-- price details ** -->
+            <p><b>Price: ${{ listing.price }}</b></p>
+            <p><b>Stock Remaining: {{ listing.stock }}</b></p>
+        </div>
+
+        <!-- listing details ** -->
+        <div class="border">
+            <span>Listing Details:</span>
+            <ul>
+                <li>Producer: <a href="{% url 'eshop:profile' listing.producer.username %}">{{ listing.producer.username }}</a></li>
+                <li>Category: {{ listing.category }}</li>
+            </ul>
+        </div>
+        
+        <!-- send to cart view ** JS -->
+        <div style="display: flex;flex-direction: row;justify-content: space-between;">
+            <form id="cartform"> <!-- don't submit form ** -->
+                <input type="hidden" id="listing_id" value="{{ listing.id }}">
+                {% if listing.stock != 0 %}
+                    <input class="btn btn-primary" type="submit" value="Add to Cart">
+                    <input type="number" id="amount" value="0" min="0" max="{{ listing.stock }}">
+                {% else %}
+                    <input class="btn btn-primary" type="submit" value="Add to Cart" disabled>
+                    <input type="number" id="amount" value="0" min="0" max="{{ listing.stock }}" disabled>
+                {% endif %}
+            </form>
+            <p style="float: right;"><b>(In Cart: <span id="incart">{{ products_in_cart }}</span>)</b></p>
+        </div>
+
+        <!-- added to cart message ** JS -->
+        <span id="message" style="color: green;"></span>
+
+        <!-- add comments form ** JS -->
+        <div>
+            <form id="commentform"> <!-- don't submit form ** -->
+                <div class="form-group">
+                    <label for="comment">Add a comment:</label>
+                    <textarea class="form-control" id="comment" name="comment" rows="3" style="margin-bottom: 5px;"></textarea>
+                    <input class="btn btn-primary" type="submit">
+                </div>
+            </form>
+        </div>
+
+        <!-- comment section **-->
+        <span>Comments:</span>
+        <div class="border">
+            <ul id="commentlist">
+                {% for comment in comments %}
+                    <li>{{ comment.user.username }}: {{ comment.comment }}</li>
+                {% empty %}
+                    <li id="nocomment">No comments.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- hidden input for storing user.username ** -->
+        <input type="hidden" id="request_user" value="{{ user.username }}">
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'eshop/listing.js' %}"></script>
+{% endblock %}

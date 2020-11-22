@@ -1,0 +1,60 @@
+<!-- checkout page ** -->
+{% extends 'eshop/layout.html' %}
+<!-- load static files ** -->
+{% load static %}
+
+{% block body %}
+    <h2>Checkout</h2>
+    <!-- displat products in cart ** -->
+    <div class='border'>
+        <div class="row">
+            {% for product in cart_products %}
+                <div class="col-lg-3 col-sm-6" id="product-{{ product.id }}">
+                    <a href="{% url 'eshop:listing' product.listing.id %}">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ product.imageurl }}" alt="No Image">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.title }} ${{ product.price }}</h5>
+                                <p class="card-text">{{ product.description }}</p>
+                            </div>
+                        </div>
+                    </a>
+                    <br/>
+                </div>
+            {% empty %}
+                <div class="niltext">No Products</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <form action="{% url 'eshop:checkout' %}" method="POST">
+        {% csrf_token %}
+        <!-- user info ** -->
+        <div class="form-group">
+            <label for="user">User*:</label>
+            <input type="text" class="form-control" id="user" name="user" value="{{ user.username }}" readonly="readonly">
+        </div>
+        <!-- total info ** -->
+        <div class="form-group">
+            <label for="total">Total*:</label>
+            <input type="text" class="form-control" id="total" name="total" value="${{ total }}" readonly="readonly">
+        </div>
+        <!-- address input ** -->
+        <div class="form-group">
+            <label for="address">Mailing Address*:</label>
+            <textarea class="form-control" id="address" name="address" rows="3" placeholder="Street Address, City, State, Country, Postal Code"></textarea>
+        </div>
+        <!-- credit card number input ** -->
+        <div class="form-group">
+            <label for="creditcard">Credit Card Number*:</label>
+            <input type="text" class="form-control" id="creditcard" name="creditcard" placeholder="1122-3344-5566-7788">
+        </div>
+        
+        <input type="submit">
+        <p>* : required field</p>
+    </form>
+
+{% endblock %}
+
+{% block script %}
+{% endblock %}

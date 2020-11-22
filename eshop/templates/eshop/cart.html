@@ -1,0 +1,43 @@
+<!-- cart page ** -->
+{% extends 'eshop/layout.html' %}
+<!-- load static files ** -->
+{% load static %}
+
+{% block body %}
+    <h2>Cart</h2>
+    <!-- display products in cart ** -->
+    <div class="row">
+        {% for product in cart_products %}
+            <div class="col-lg-3 col-sm-6" id="product-{{ product.id }}">
+                <a href="{% url 'eshop:listing' product.listing.id %}">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ product.imageurl }}" alt="No Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.title }} ${{ product.price }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                        </div>
+                    </div>
+                </a>
+                <!-- remove button ** JS -->
+                <div class="border" style="width: 20rem;">
+                    <button class="btn btn-primary removeform" data-id="{{ product.id }}" data-price="{{ product.price }}">Remove</button>
+                </div>
+                <br/>
+            </div>
+        {% empty %}
+            <div class="niltext">No Products</div>
+        {% endfor %}
+    </div>
+
+    <!-- subtotal ** -->
+    {% if cart_products|length != 0 %}
+        <div class="border" style="display: flex;flex-direction: row;justify-content: space-between;">
+            <h3>Subtotal: $<span id="subtotal">{{ subtotal }}</span></h3>
+            <a href="{% url 'eshop:checkout' %}"><button class="btn btn-primary" style="float: right;">Checkout</button></a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'eshop/cart.js' %}"></script>
+{% endblock %}

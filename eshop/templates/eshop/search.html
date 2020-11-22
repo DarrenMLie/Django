@@ -1,0 +1,30 @@
+<!-- search page ** -->
+{% extends 'eshop/layout.html' %}
+<!-- load static files ** -->
+{% load static %}
+
+{% block body %}
+    <h2>Search Results</h2>
+    <!-- display search results ** -->
+    <div class="row">
+        {% for listing in listings %}
+            <div class="col-lg-3 col-sm-6">
+                <a href="{% url 'eshop:listing' listing.id %}">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ listing.imageurl }}" alt="No Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ listing.title }} ${{ listing.price }}</h5>
+                            <p class="card-text">{{ listing.description }}</p>
+                        </div>
+                    </div>
+                </a>
+                <br/>
+            </div>
+        {% empty %}
+            <div class="niltext">No Listings</div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

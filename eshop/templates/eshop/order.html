@@ -1,0 +1,42 @@
+<!-- order page ** -->
+{% extends 'eshop/layout.html' %}
+<!-- load static files ** -->
+{% load static %}
+
+{% block body %}
+    <h2>Order Details</h2>
+    <!-- display order info ** -->
+    <div class='border'>
+        <div class="row">
+            {% for product in order.products.all %}
+                <div class="col-lg-3 col-sm-6" id="product-{{ product.id }}">
+                    <a href="{% url 'eshop:listing' product.listing.id %}">
+                        <div class="card">
+                            <img class="card-img-top" src="{{ product.imageurl }}" alt="No Image">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.title }} ${{ product.price }}</h5>
+                                <p class="card-text">{{ product.description }}</p>
+                            </div>
+                        </div>
+                    </a>
+                    <br/>
+                </div>
+            {% empty %}
+                <div class="niltext">No Products</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- more info on the order ** -->
+    <div class="border">
+        <p>Ordered by: <a href="{% url 'eshop:profile' order.user.username %}">{{ order.user.username }}</a></p>
+        <p>Ordered on: {{ order.timestamp }}</p>
+        <p>Confirmation Number: {{ order.confirmation }}</p>
+        <p>Total: ${{ order.total }}</p>
+        <p>Mailing Address: {{ order.address }}</p>
+        <p>Credit Card Number: {{ order.creditcard }}</p> 
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

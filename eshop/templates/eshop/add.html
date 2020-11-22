@@ -1,0 +1,54 @@
+<!-- add listing page ** -->
+{% extends 'eshop/layout.html' %}
+<!-- load static files ** -->
+{% load static %}
+
+{% block body %}
+    <h2>Add Listing</h2>
+    <form action="{% url 'eshop:add' %}" method="POST">
+        {% csrf_token %}
+        <!-- title input ** -->
+        <div class="form-group">
+        <label for="title">Title*:</label>
+        <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <!-- category input ** -->
+        <div class="form-group">
+        <label for="category">Category:</label>
+        <select class="form-control" id="category" name="category">
+            <option></option>
+            <option>Furniture</option>
+            <option>Electronics</option>
+            <option>Toys</option>
+            <option>Books</option>
+            <option>Fashion</option>
+        </select>
+        </div>
+        <!-- price input ** -->
+        <div class="form-group">
+            <label for="price">Price*:</label>
+            <input type="number" class="form-control" id="price" name="price">
+        </div>
+        <!-- stock input ** -->
+        <div class="form-group">
+            <label for="stock">Stock*:</label>
+            <input type="number" class="form-control" id="stock" name="stock">
+        </div>
+        <!-- description input ** -->
+        <div class="form-group">
+            <label for="description">Description*:</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <!-- image url input ** -->
+        <div class="form-group">
+            <label for="imageurl">Image Url:</label>
+            <input type="url" class="form-control" id="imageurl" name="imageurl">
+        </div>
+        
+        <input type="submit">
+        <p>* : required field</p>
+    </form>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

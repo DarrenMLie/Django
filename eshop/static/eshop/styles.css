@@ -1,0 +1,29 @@
+/* styles file ** */
+img {
+    width: 20rem;
+    height: 15rem;
+}
+
+.card {
+    width: 20rem;
+} 
+
+.niltext {
+    margin-top: 250px;
+    margin-left: 45%;
+    margin-right: 45%;
+}
+
+div.listingpage > div {
+    margin-bottom: 10px;
+}
+
+.body {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

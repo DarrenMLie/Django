@@ -1,0 +1,24 @@
+<!-- orders page ** -->
+{% extends 'eshop/layout.html' %}
+<!-- load static files ** -->
+{% load static %}
+
+{% block body %}
+    <h2>Orders</h2>
+    <!-- display orders ** -->
+    {% for order in orders %}
+        <div class="border">
+            <a href="{% url 'eshop:order' order.id %}">
+                <span>Confirmation Number: {{ order.confirmation }}</span>
+                <br/>
+                <span>Ordered on: {{ order.timestamp }}</span>
+            </a>
+        </div>
+        <br/>
+    {% empty %}
+        <div class="niltext">No Orders</div>
+    {% endfor %}
+{% endblock %}
+
+{% block script %}
+{% endblock %}
