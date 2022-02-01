@@ -1,6 +1,6 @@
 ## E-Commerce Website Project
 
-In this project, I created an amazon-like e-commerce website using Django where users can search for available products, add their own product listings, add products to their carts, and finally order products that they have added to their cart. When first visiting the application, users will have to create an account, entering rnecessary information which will then be stored in a database and used in the website.
+In this project, I created an amazon-like e-commerce website using Django where users can search for available products, add their own product listings, add products to their carts, and finally order products that they have added to their cart. When first visiting the application, users will have to create an account, entering necessary information which will then be stored in a database and used in the website.
 
 # Files
 In total there are 23 main files used to create this website, including 6 .py files, 14 .html files, 2 .js files, and 1 .css file.
